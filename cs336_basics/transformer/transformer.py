@@ -41,7 +41,7 @@ def get_transformer(
     dtype: torch.dtype | None = None,
     pre_norm: bool = False,
     nope: bool = False,
-    gated: bool = False,  # TODO switch back to True
+    gated: bool = False,
 ) -> Transformer:
     token_embeddings = modules.Embedding(
         num_embeddings=vocab_size,
