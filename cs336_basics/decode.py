@@ -19,7 +19,7 @@ def decode(
     temperature: float,
     top_p: float,
     device: torch.device,
-    end_of_text_token = "<|endoftext|>"
+    end_of_text_token="<|endoftext|>",
 ) -> Iterator[str]:
     # TODO: Raise if sequence length is too long?
     inputs = torch.LongTensor(tokenizer.encode(text=prompt)).to(device)
@@ -59,10 +59,9 @@ def _decode_one(
     candidate_probs_tensor = torch.stack(candidate_probabilities)
     winner = torch.multinomial(candidate_probs_tensor, 1)
     return argsort[winner.item()].unsqueeze(0)
-    
-    
-if __name__ == "__main__":
 
+
+if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Decode using Transformer model")
 
     # Model Arguments
@@ -74,7 +73,9 @@ if __name__ == "__main__":
     parser.add_argument("--vocab_size", type=int, default=10_000, help="Size of the vocabulary.")
     parser.add_argument("--num_layers", type=int, default=4, help="Number of transformer layers.")
     parser.add_argument("--rope_theta", type=float, default=10000.0, help="Theta parameter for RoPE.")
-    parser.add_argument("--dtype", type=str, default="float16", choices=["float32", "bfloat16", "float16"], help="Model dtype.")
+    parser.add_argument(
+        "--dtype", type=str, default="float16", choices=["float32", "bfloat16", "float16"], help="Model dtype."
+    )
     parser.add_argument("--sequence_length", type=int, default=256, help="Length of input sequences (context length).")
 
     # Optimizer Arguments
@@ -138,4 +139,4 @@ if __name__ == "__main__":
         top_p=args.top_p,
         device=args.device,
     ):
-        print(output)#, end="\r")
+        print(output)  # , end="\r")

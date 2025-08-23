@@ -90,7 +90,7 @@ def train_bpe(
         encoding=encoding,
     )
     t1 = timeit.default_timer()
-    logger.info(f"t-pretokenize: {t1-t0:.2f}s")
+    logger.info(f"t-pretokenize: {t1 - t0:.2f}s")
     word_counts = [Word([bytes([c]) for c in word.encode(encoding)], count) for word, count in word_counts.items()]
     vocabulary = _get_initial_vocab(
         special_tokens=special_tokens,
@@ -118,7 +118,7 @@ def train_bpe(
             q.update(pair=pair, count_delta=update)
 
     t2 = timeit.default_timer()
-    logger.info(f"t-tokenize: {t2-t1:.2f}s")
+    logger.info(f"t-tokenize: {t2 - t1:.2f}s")
     return vocabulary, merges
 
 

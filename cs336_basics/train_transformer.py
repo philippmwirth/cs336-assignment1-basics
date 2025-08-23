@@ -9,6 +9,7 @@ import numpy.typing as npt
 import argparse
 import logging
 import torch._dynamo
+
 torch._dynamo.config.suppress_errors = True
 
 from cs336_basics.training import adamw
@@ -236,6 +237,7 @@ if __name__ == "__main__":
 
     print(len(np.load(args.training_dataset, mmap_mode="r")))
     import sys
+
     sys.exit(0)
     match args.dtype:
         case "float32":

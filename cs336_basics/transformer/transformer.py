@@ -41,7 +41,7 @@ def get_transformer(
     dtype: torch.dtype | None = None,
     pre_norm: bool = False,
     nope: bool = False,
-    gated: bool = False, # TODO switch back to True
+    gated: bool = False,  # TODO switch back to True
 ) -> Transformer:
     token_embeddings = modules.Embedding(
         num_embeddings=vocab_size,
@@ -87,4 +87,3 @@ def get_transformer(
         ln_final=ln_final,
         lm_head=lm_head,
     ).to(device)
-

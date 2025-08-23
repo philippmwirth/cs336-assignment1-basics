@@ -90,10 +90,13 @@ class RMSNorm(nn.Module):
     def _reset_parameters(self) -> None:
         self.weight.data = torch.ones(self.d_model)
 
-# NoPE implementation.
+
+# NoPE implementation.
 class NoPE(nn.Module):
     def __init__(
-        self, *args, **kwargs,
+        self,
+        *args,
+        **kwargs,
     ):
         super().__init__()
         self.identity = nn.Identity(args, kwargs)
