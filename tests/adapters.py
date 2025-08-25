@@ -21,6 +21,7 @@ from cs336_basics.training import schedule
 from cs336_basics.training import data
 from cs336_basics.training import checkpoints
 
+
 def run_linear(
     d_in: int,
     d_out: int,
@@ -35,13 +36,14 @@ def run_linear(
         out_dim (int): The size of the output dimension
         weights (Float[Tensor, "d_out d_in"]): The linear weights to use
         in_features (Float[Tensor, "... d_in"]): The output tensor to apply the function to
-    
+
     Returns:
         Float[Tensor, "... d_out"]: The transformed output of your linear module.
     """
     linear = modules.Linear(in_features=d_in, out_features=d_out)
     linear.weight.data = weights
     return linear(x=in_features)
+
 
 def run_embedding(
     vocab_size: int,
@@ -57,7 +59,7 @@ def run_embedding(
         d_model (int): The size of the embedding dimension
         weights (Float[Tensor, "vocab_size d_model"]): The embedding vectors to fetch from
         token_ids (Int[Tensor, "..."]): The set of token ids to fetch from the Embedding layer
-    
+
     Returns:
         Float[Tensor, "... d_model"]: Batch of embeddings returned by your Embedding layer.
     """
@@ -324,6 +326,7 @@ def run_transformer_block(
     token_positions = torch.arange(in_features.shape[-2]).long()
     return block(x=in_features, token_positions=token_positions)
 
+
 def run_transformer_lm(
     vocab_size: int,
     context_length: int,
@@ -349,7 +352,7 @@ def run_transformer_lm(
             evenly divisible by `num_heads`.
         d_ff (int): Dimensionality of the feed-forward inner layer (section 3.3).
         rope_theta (float): The RoPE $\Theta$ parameter.
-        weights (dict[str, Tensor]): 
+        weights (dict[str, Tensor]):
             State dict of our reference implementation. {num_layers} refers to an
             integer between `0` and `num_layers - 1` (the layer index).
             The keys of this dictionary are:
@@ -410,7 +413,7 @@ def run_transformer_lm(
         vocab_size=vocab_size,
         context_length=context_length,
         num_layers=num_layers,
-        rope_theta=rope_theta
+        rope_theta=rope_theta,
     )
     transformer_lm.load_state_dict(weights)
     return transformer_lm(x=in_indices)
@@ -500,7 +503,9 @@ def run_softmax(in_features: Float[Tensor, " ..."], dim: int) -> Float[Tensor, "
     return utils.softmax(x=in_features, dim=dim)
 
 
-def run_cross_entropy(inputs: Float[Tensor, " batch_size vocab_size"], targets: Int[Tensor, " batch_size"]) -> Float[Tensor, ""]:
+def run_cross_entropy(
+    inputs: Float[Tensor, " batch_size vocab_size"], targets: Int[Tensor, " batch_size"]
+) -> Float[Tensor, ""]:
     """Given a tensor of inputs and targets, compute the average cross-entropy
     loss across examples.
 
