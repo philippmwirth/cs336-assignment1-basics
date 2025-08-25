@@ -187,7 +187,6 @@ class SwiGLU(nn.Module):
         self.silu = SiLU()
 
     def forward(self, x: Float[torch.Tensor, "... d"]) -> Float[torch.Tensor, "... d"]:
-        assert not self.gated, "Remove me after the experiments!"
         if self.gated:
             return self.w2(self.silu(self.w1(x)) * self.w3(x))
         else:

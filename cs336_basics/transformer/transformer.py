@@ -39,9 +39,9 @@ def get_transformer(
     rope_theta: float,
     device: torch.device | None = None,
     dtype: torch.dtype | None = None,
-    pre_norm: bool = False,
+    pre_norm: bool = True,
     nope: bool = False,
-    gated: bool = False,
+    gated: bool = True,
 ) -> Transformer:
     token_embeddings = modules.Embedding(
         num_embeddings=vocab_size,
